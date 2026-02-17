@@ -49,9 +49,8 @@ const responseSchema: Schema = {
 export const generateAnalysis = async (answers: Answers): Promise<AnalysisResult> => {
   // Defensive check for API key
   if (!process.env.API_KEY) {
-    console.warn("API_KEY is missing. Returning mock data for development/preview.");
-    // Fallback or error - for now, throw error to be handled by UI
-    throw new Error("API Key is missing.");
+    console.error("API_KEY is missing. Check .env file (local) or Vercel Environment Variables.");
+    throw new Error("システム設定エラー: APIキーが設定されていません。管理者に連絡してください。");
   }
 
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });

@@ -7,6 +7,13 @@ export default defineConfig(({ mode }) => {
   // 第3引数を '' にすることで、VITE_ プレフィックスがない変数もロード対象にします
   const env = loadEnv(mode, process.cwd(), '');
 
+  // デバッグ用: キーが読み込めているかターミナル（ビルドログ）に表示
+  if (env.API_KEY) {
+    console.log(`✅ API_KEY loaded: ${env.API_KEY.slice(0, 8)}...`);
+  } else {
+    console.warn("⚠️ API_KEY is NOT set in environment variables. Please check .env file or Vercel settings.");
+  }
+
   return {
     plugins: [react()],
     define: {
